@@ -1,43 +1,45 @@
-import {useEffect} from 'react'
+import { useEffect } from 'react';
 import "./Typewritter.css";
-// import {useEffect} from 'react'
-//http://jsdoc.app/tags-pram.html
 
-function Typewritter({data = [], TypeSpeed = 100, MsgDelay = 2000 }) {
+
+// https://jsdoc.app/tags-param.html
+
+function Typewritter({ data = [], TypeSpeed = 100, MsgDelay = 2000}) {
   useEffect(() => {
-    let characterPos = 0;
+    let CharacterPos = 0;
     let MsgBuffer = "";
     let MsgIndex = 0;
     let delay;
 
-    function startTyping() {
-      let id = document. getElementById("typing-text");
-      if (characterPos !== data[MsgIndex].length) {
-        MsgBuffer = MsgBuffer + data[MsgIndex].charAt(characterPos);
+    function StartTyping() {
+      let id = document.getElementById("typing-text");
+      if (CharacterPos !== data[MsgIndex].length) {
+        MsgBuffer = MsgBuffer + data[MsgIndex].charAt(CharacterPos);
         id.value = MsgBuffer + "_";
         delay = TypeSpeed;
       } else {
         delay = MsgDelay;
         MsgBuffer = "";
-        characterPos = -1;
-        if(MsgIndex !== data.length - 1) {
+        CharacterPos = -1;
+        if (MsgIndex !== data.length - 1) {
           MsgIndex++;
         } else {
-          MsgIndex = 0;
+          MsgIndex = 0
         }
       }
-    
-    characterPos++;
-    setTimeout(startTyping,delay);
-  }
+      CharacterPos++;
+      setTimeout(StartTyping, delay);
+    }
 
-    startTyping();
+    StartTyping();
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
-    <textarea id= "typing-text" readOnly></textarea>
-)
+
+    <textarea id="typing-text" readOnly></textarea>
+  )
 }
 
 export default Typewritter
